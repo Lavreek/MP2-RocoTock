@@ -3,11 +3,8 @@
                 android:background="@android:color/white"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
-    <TextView
-            android:text="3"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_centerInParent="true"
-            android:textSize="140px"
-            android:textStyle="bold"/>
+
+    <include
+            android:id="@+id/avf_advice_view_first_support"
+            layout="@layout/advice_view_fourth_support"/>
 </RelativeLayout>

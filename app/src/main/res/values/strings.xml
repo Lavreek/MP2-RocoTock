@@ -37,4 +37,5 @@
     <string name="create_or_choose_tag">Создайте или выберите метку</string>
     <string name="progress">Прогресс выполнения:</string>
     <string name="mark">Метка:</string>
+    <string name="next">Дальше</string>
 </resources>

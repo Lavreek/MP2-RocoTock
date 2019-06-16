@@ -31,18 +31,32 @@ class HideAway {
         return true
     }
 
-    fun returnStatus(result: Int) : String {
+    fun returnStatusCaption(result: Int) : String {
         if (result == 0) {
-            return " - "
+            return "Провалено"
         }
         if (result == 1) {
-            return " ~ "
+            return "В процессе"
         }
         if (result == 2) {
-            return " + "
+            return "Выполнено"
         }
         return ""
     }
+
+    fun returnStatusInt(result: String) : Int {
+        if (result == "Провалено") {
+            return 0
+        }
+        if (result == "В процессе") {
+            return 1
+        }
+        if (result == "Выполнено") {
+            return 2
+        }
+        return 0
+    }
+
 
     fun setArray(nodes :Array<String>, current :String) : Array<String?> {
         val RetArray = arrayOfNulls<String>(nodes.size)

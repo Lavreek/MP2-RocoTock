@@ -12,12 +12,16 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
+import com.example.mp2.Entityes.EntityGoal
+import com.example.mp2.Entityes.EntityTasks
+import com.example.mp2.GoalsLogic.GoalRecordEdit
+import com.example.mp2.GoalsLogic.GoalRecordEdit.Companion.CurrentSelectedGoal
 import com.example.mp2.GoalsLogic.GoalRecords
 import com.example.mp2.TasksLogic.TaskRecordEdit
-import com.example.mp2.TasksLogic.TaskRecordEdit.Companion.CurrentSelectedTask
 import com.example.mp2.TasksLogic.TaskRecords
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -26,6 +30,13 @@ import kotlinx.android.synthetic.main.support_activity_search_task.*
 import org.jetbrains.anko.noAnimation
 
 class SearchTask : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    private var DatabaseHandler = MainActivity.ADB?.employeeDao()
+    private var SearchTaskAdapter: ArrayAdapter<String?>? = null
+    private var CompletedCount = 0
+    private var taskList: List<EntityTasks>? = null
+    private var goalList: List<EntityGoal>? = null
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_goal -> { startActivity(Intent(this, GoalRecords::class.java).noAnimation()) }
@@ -38,20 +49,71 @@ class SearchTask : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         return true
     }
 
-    private var DatabaseHandler = MainActivity.ADB?.employeeDao()
-    private var SearchTaskAdapter: ArrayAdapter<String?>? = null
-    private var TaskCount = 0
-    private var CompletedCount = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_task)
 
+        setLogic()
+    }
 
+    private fun setLogic() {
+        setToolbar()
+
+        et_search_task.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
+            override fun afterTextChanged(p0: Editable?) { showTaskList() }
+        })
+
+        st_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(adapterView: AdapterView<*>, view: View, i: Int, l: Long) { setTaskSearch() }
+            override fun onNothingSelected(adapterView: AdapterView<*>) { }
+        }
+
+        listViewTask.setOnItemClickListener { parent, view, position, id ->
+            try {
+                val textView = view as TextView
+                val ls = textView.text.toString()
+                val delimiter = " | "
+                val parts = ls.split(delimiter)
+
+                if (st_spinner.selectedItem.toString() == "Метки") {
+                    Observable.fromCallable {
+                        try {
+                            with(DatabaseHandler) { TaskRecordEdit.CurrentSelectedTask = this?.getTaskByCaption(parts[1], parts[2] + "%") }
+                            startActivity(Intent(this, TaskRecordEdit::class.java).noAnimation())
+                        } catch (e : Throwable) { }
+                    }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
+                }
+                if (st_spinner.selectedItem.toString() == "Цели") {
+                    Observable.fromCallable {
+                        try {
+                            with(MainActivity.ADB?.goalDao()) { CurrentSelectedGoal = this?.getGoalByCaption(parts[1]) }
+                            startActivity(Intent(this, GoalRecordEdit::class.java).noAnimation())
+                        } catch (e : Throwable) { }
+                    }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
+                }
+            }
+            catch(e:Throwable) {
+                Toast.makeText(this, "Ошибка, даже не знаю почему :(", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        showTaskList()
+        setSpinner()
+        setTaskSearch()
+    }
+
+    private fun setSpinner() {
+        val nodes = arrayOf("Метки", "Цели")
+        val adapter =  ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nodes)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        st_spinner.adapter = adapter
+    }
+
+    private fun setToolbar() {
         val toolbar: Toolbar = findViewById(R.id.search_task_toolbar_search)
         setSupportActionBar(toolbar)
-
-//        val toolbar : Toolbar = toolbar as Toolbar
-//        setSupportActionBar(toolbar)
 
         val drawerLayout: DrawerLayout = findViewById(R.id.search_task_activity)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -62,78 +124,66 @@ class SearchTask : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         toggle.syncState()
 
         navView.setNavigationItemSelectedListener(this)
+    }
 
-        et_search_task.addTextChangedListener(object : TextWatcher {
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+    private fun setList(taskList: List<EntityTasks>? = null, goalList: List<EntityGoal>? = null) : Array<String?> {
+        var ListItems : Array<String?> = arrayOf("")
+
+        if (st_spinner.selectedItem.toString() == "Метки") {
+            val count = taskList?.size!!.toInt()
+            ListItems = arrayOfNulls(taskList.size)
+
+            for (i in 0 until count) {
+                val recipe = taskList!![i]
+                ListItems[i] = "${recipe.task_progress}% | ${recipe.importance} | ${recipe.caption.toString()}"
             }
+        }
+        if (st_spinner.selectedItem.toString() == "Цели" && goalList!!.size > 0) {
+            if (et_search_task.text.isNotEmpty()) {
+                val count = goalList?.size!!.toInt()
+                ListItems = arrayOfNulls(goalList.size)
+                val help = HideAway()
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                showTaskList()
-            }
-        })
-
-        listViewTask.setOnItemClickListener { parent, view, position, id ->
-            try {
-                val element = SearchTaskAdapter?.getItemId(position)
-                val textView = view as TextView
-                val ls = textView.text.toString()
-                val delimiter = " | "
-                val parts = ls.split(delimiter)
-
-                Observable.fromCallable {
-                    with(DatabaseHandler) { CurrentSelectedTask = this?.getTaskByCaption(parts[1], parts[2]) }
-                }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
-
-                val intent = Intent(this, TaskRecordEdit::class.java)
-                intent.noAnimation()
-                startActivity(intent)
-            }
-            catch(e:Throwable) {
-                Toast.makeText(this, "Ошибка, даже не знаю почему :(", Toast.LENGTH_SHORT).show()
+                for (i in 0 until count) {
+                    val recipe = goalList!![i]
+                    ListItems[i] = "${help.returnStatusCaption(recipe.goal_status)} ( ${recipe.goal_progress}% ) | ${recipe.goal_caption}"
+                }
             }
         }
 
-        showTaskList()
-        setTaskSearch()
+        return ListItems
     }
 
     private fun showTaskList() {
         Observable.fromCallable {
             CompletedCount = DatabaseHandler?.getCountTagEntity(et_search_task.text.toString())!!.toInt()
-            DatabaseHandler?.getTagEntity(et_search_task.text.toString())
-        }.doOnNext { list ->
-
-            TaskCount = list?.size!!.toInt()
-            val ListItems = arrayOfNulls<String>(TaskCount)
-
-            for (i in 0 until TaskCount) {
-                val recipe = list[i]
-                ListItems[i] = " | " + recipe.importance + " | " + recipe.caption.toString()
-            }
-
-            SearchTaskAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, ListItems)
-            this@SearchTask.runOnUiThread(Runnable {
-                this.listViewTask?.adapter = SearchTaskAdapter
-                st_progressBar.max = TaskCount
-                st_progressBar.progress = CompletedCount
-                var Result = 0
-                if (TaskCount > 0 && CompletedCount > 0) {
-                    Result = (100 / TaskCount) * CompletedCount
+            taskList = DatabaseHandler?.getTagEntity(et_search_task.text.toString())
+            goalList = MainActivity.ADB?.goalDao()?.getCaptionGoalList(et_search_task.text.toString())
+        }.doOnNext{
+            val list = setList(taskList, goalList)
+            if (list.isNotEmpty())
+            {
+                SearchTaskAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
+                this@SearchTask.runOnUiThread {
+                    this.listViewTask?.adapter = SearchTaskAdapter
                 }
-                st_textView_completed.setText("Выполнено: $Result %")
-            })
+            }
         }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
     }
 
     private fun setTaskSearch() {
-        Observable.fromCallable { DatabaseHandler?.getEntityTags }.doOnNext{
-                list ->
-            val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list!!.toTypedArray())
-            this@SearchTask.runOnUiThread{et_search_task.setAdapter(adapter)}
-        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
+        if (st_spinner.selectedItem.toString() == "Метки") {
+            Observable.fromCallable { DatabaseHandler?.getEntityTags }.doOnNext { list ->
+                val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list!!.toTypedArray())
+                this@SearchTask.runOnUiThread { et_search_task.setAdapter(adapter) }
+            }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
+        }
+        if (st_spinner.selectedItem.toString() == "Цели") {
+            Observable.fromCallable { MainActivity.ADB?.goalDao()?.getGoalCaptions }.doOnNext { list ->
+                val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list!!.toTypedArray())
+                this@SearchTask.runOnUiThread { et_search_task.setAdapter(adapter) }
+            }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
+        }
     }
 
     fun gotoSearch(v :View) { startActivity(Intent(this, SearchTask::class.java)) }

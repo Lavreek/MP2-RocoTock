@@ -3,6 +3,7 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.example.mp2">
 
+    <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application

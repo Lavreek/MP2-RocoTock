@@ -4,15 +4,16 @@
                                              android:layout_height="match_parent">
 
     <include
-            android:id="@+id/av1_toolbar_default"
+            android:id="@+id/avsixth_toolbar_default"
             layout="@layout/toolbar_default"/>
     <include
-            android:id="@+id/av1_toolbar_bottom"
+            android:id="@+id/avsixth_toolbar_bottom"
             layout="@layout/toolbar_bottom"/>
     <ScrollView
             android:layout_width="0dp"
-            android:layout_height="0dp" app:layout_constraintBottom_toTopOf="@+id/avfs_button"
-            app:layout_constraintTop_toBottomOf="@+id/av1_toolbar_default" app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="0dp" app:layout_constraintBottom_toTopOf="@+id/avsixth_button"
+            app:layout_constraintTop_toBottomOf="@+id/avsixth_toolbar_default"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
         <LinearLayout
                 android:orientation="vertical"
@@ -23,7 +24,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:layout_marginTop="40dp"/>
             <TextView
-                    android:text="Составляйте планы"
+                    android:text="Фокусируйтесь на главном"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/textView2" android:layout_marginTop="8dp"
@@ -33,7 +34,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:layout_marginTop="40dp"/>
             <TextView
-                    android:text="План – основа самоконтроля. Он помогает структурировать свою деятельность. И не нужно бояться, что план будет загонять вас в свои жесткие рамки. "
+                    android:text="Умение фокусироваться на главном, не отвлекаясь на постороннее, — важнейший практический навык, овладев которым, вы решите самые приоритетные задачи продуктивного тайм-менеджмента."
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/textView4" android:textAlignment="center"
                     android:lineSpacingExtra="8sp" android:fontFamily="sans-serif" android:typeface="monospace"
@@ -44,14 +45,14 @@
                     android:layout_height="wrap_content" android:layout_marginTop="40dp"/>
             <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="60dp" app:srcCompat="@drawable/img_plan" android:id="@+id/imageView2"/>
+                    android:layout_height="100dp" app:srcCompat="@drawable/img_plan6" android:id="@+id/imageView2"/>
         </LinearLayout>
     </ScrollView>
     <Button
             android:text="@string/next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/avfs_button"
+            android:id="@+id/avsixth_button"
             style="@android:style/Widget.Button"
             android:textColor="#020202"
             android:background="#FF9A02"
@@ -59,6 +60,7 @@
             android:fontFamily="sans-serif"
             android:backgroundTintMode="multiply"
             android:layout_marginBottom="32dp"
-            android:onClick="flipByClick" app:layout_constraintBottom_toTopOf="@+id/av1_toolbar_bottom"/>
+            android:onClick="flipByClick"
+            app:layout_constraintBottom_toTopOf="@+id/avsixth_toolbar_bottom"/>
 
 </android.support.constraint.ConstraintLayout>

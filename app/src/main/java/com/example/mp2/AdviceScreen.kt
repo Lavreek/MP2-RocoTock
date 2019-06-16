@@ -73,7 +73,7 @@ class AdviceScreen : AppCompatActivity() {
     )
 
     fun flipByClick(v: View) {
-        flipper!!.showNext()// shows the next view element of ViewFlipper
+        flipper!!.showNext()
     }
 
     fun gotoHome(v : View){ startActivity(Intent(this, MainActivity::class.java).noAnimation()) }

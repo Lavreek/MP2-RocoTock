@@ -135,7 +135,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             for (i in 0 until list.size) {
                 val recipe = list[i]
-                ListItems[i + 1] = "${recipe.task_progress}%" + " | " + recipe.importance + " | " + recipe.caption.toString()
+                ListItems[i + 1] = "${recipe.task_progress}% | ${recipe.importance} | ${recipe.caption}"
             }
             task_listViewAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, ListItems)
             am_listView_tasks?.adapter = task_listViewAdapter
@@ -187,7 +187,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
                     Observable.fromCallable {
                         try {
-                            with(ADB?.employeeDao()) { TaskRecordEdit.CurrentSelectedTask = this?.getTaskByCaption(parts[1], parts[2]+"%") }
+                            with(ADB?.employeeDao()) { TaskRecordEdit.CurrentSelectedTask = this?.getTaskByCaption(parts[1], parts[2] + "%") }
                             startActivity(intent)
                         }
                         catch (e : Throwable) { }

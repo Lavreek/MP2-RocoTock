@@ -16,11 +16,27 @@
 
         <include
                 android:id="@+id/aas_2"
-                layout="@layout/advice_view_2"/>
+                layout="@layout/advice_view_second"/>
 
         <include
                 android:id="@+id/aas_3"
-                layout="@layout/advice_view_3"/>
+                layout="@layout/advice_view_third"/>
+
+        <include
+                android:id="@+id/aas_4"
+                layout="@layout/advice_view_fourth"/>
+
+        <include
+                android:id="@+id/aas_5"
+                layout="@layout/advice_view_fifth"/>
+
+        <include
+                android:id="@+id/aas_6"
+                layout="@layout/advice_view_sixth"/>
+
+        <include
+                android:id="@+id/aas_7"
+                layout="@layout/advice_view_seventh"/>
 
     </ViewFlipper>
 </LinearLayout>

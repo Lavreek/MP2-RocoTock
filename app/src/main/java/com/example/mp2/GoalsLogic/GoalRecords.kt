@@ -80,7 +80,7 @@ class GoalRecords : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                     if (Check!! > 0) {
                         MainActivity.ADB?.goalDao()?.setProgress(recipe.id)
                     }
-                    val status = help.returnStatus(recipe.goal_status)
+                    val status = help.returnStatusCaption(recipe.goal_status)
                     ListItems[i] = status + " ( " + recipe.goal_progress + "% ) | " + recipe.goal_caption
                 }
                 goal_listViewAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, ListItems)

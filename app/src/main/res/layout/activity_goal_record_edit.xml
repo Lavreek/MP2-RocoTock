@@ -16,18 +16,6 @@
             layout="@layout/toolbar_default"/>
 
     <android.support.design.widget.FloatingActionButton
-            android:id="@+id/grc_fab_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            tools:ignore="MissingConstraints"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="32dp"
-            app:backgroundTint="@color/colorPrimary"
-            android:src="@drawable/img_done"
-            app:layout_constraintBottom_toTopOf="@+id/gre_toolbar_bottom" android:visibility="invisible"/>
-    <android.support.design.widget.FloatingActionButton
             android:id="@+id/gre_fab_editStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,6 +27,7 @@
             app:backgroundTint="@color/colorPrimary"
             android:src="@drawable/img_edit" android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/gre_toolbar_bottom"/>
+
     <android.support.design.widget.FloatingActionButton
             android:id="@+id/gre_fab_editEnd"
             android:layout_width="wrap_content"
@@ -49,8 +38,9 @@
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="32dp"
             app:backgroundTint="@color/colorPrimary"
-            android:src="@drawable/img_done" android:visibility="invisible"
+            android:src="@drawable/img_done" android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/gre_toolbar_bottom"/>
+
     <LinearLayout android:layout_width="0dp"
                   android:layout_height="0dp"
                   android:orientation="vertical"
@@ -59,6 +49,7 @@
                   app:layout_constraintBottom_toTopOf="@+id/gre_toolbar_bottom"
                   app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
                   app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp">
+
         <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -67,7 +58,7 @@
                 android:ems="10"
                 android:id="@+id/gre_editText_caption"
                 android:hint="@string/caption"
-                tools:ignore="Autofill"/>
+                tools:ignore="Autofill" android:enabled="false"/>
 
         <TextView
                 android:text="Процесс выполнения:"

@@ -145,7 +145,7 @@ class TaskRecords : AppCompatActivity(), NavigationView.OnNavigationItemSelected
 
             for (i in 0 until list.size) {
                 val recipe = list[i]
-                ListItems[i + 1] = "${recipe.efficiency}% | ${recipe.importance} | ${recipe.caption.toString()}"
+                ListItems[i + 1] = "${recipe.task_progress}% | ${recipe.importance} | ${recipe.caption.toString()}"
             }
 
             listViewAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, ListItems)
@@ -183,7 +183,7 @@ class TaskRecords : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                 val parts = ls.split(delimiter)
                 if (parts.size > 1) {
                     Observable.fromCallable {
-                        with(MainActivity.ADB?.employeeDao()) { CurrentSelectedTask = this?.getTaskByCaption(parts[1], "${parts[2]}%") }
+                        with(MainActivity.ADB?.employeeDao()) { CurrentSelectedTask = this?.getTaskByCaption(parts[1], parts[2] + "%") }
                     }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
                     startActivity(Intent(this, TaskRecordEdit::class.java).noAnimation())
                 }

@@ -24,7 +24,6 @@ import java.util.*
 
 class TaskRecordEdit : AppCompatActivity(), OnSeekBarChangeListener {
 
-    private var SelectTaskAdapter: ArrayAdapter<String?>? = null
     private var DatabaseHandler = MainActivity.ADB?.employeeDao()
     private var ReadyToEdit : Boolean = false
     private var CTime: Boolean = true

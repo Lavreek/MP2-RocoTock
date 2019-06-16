@@ -4,15 +4,16 @@
                                              android:layout_height="match_parent">
 
     <include
-            android:id="@+id/av1_toolbar_default"
+            android:id="@+id/avf_toolbar_default"
             layout="@layout/toolbar_default"/>
     <include
-            android:id="@+id/av1_toolbar_bottom"
+            android:id="@+id/avf_toolbar_bottom"
             layout="@layout/toolbar_bottom"/>
+
     <ScrollView
             android:layout_width="0dp"
             android:layout_height="0dp" app:layout_constraintBottom_toTopOf="@+id/avfs_button"
-            app:layout_constraintTop_toBottomOf="@+id/av1_toolbar_default" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/avf_toolbar_default" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
         <LinearLayout
                 android:orientation="vertical"
@@ -23,7 +24,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:layout_marginTop="40dp"/>
             <TextView
-                    android:text="Составляйте планы"
+                    android:text="Работай меньше, успевай больше!"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/textView2" android:layout_marginTop="8dp"
@@ -33,7 +34,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:layout_marginTop="40dp"/>
             <TextView
-                    android:text="План – основа самоконтроля. Он помогает структурировать свою деятельность. И не нужно бояться, что план будет загонять вас в свои жесткие рамки. "
+                    android:text="Люди, которые умеют продуктивно распоряжаться собственными запасами времени, живут более насыщенной и полной жизнью, делают свою работу с минимальными временными затратами. "
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/textView4" android:textAlignment="center"
                     android:lineSpacingExtra="8sp" android:fontFamily="sans-serif" android:typeface="monospace"
@@ -42,9 +43,25 @@
             <Space
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:layout_marginTop="40dp"/>
-            <ImageView
+            <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp" app:srcCompat="@drawable/img_plan" android:id="@+id/imageView2"/>
+                    android:layout_height="match_parent">
+                <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_weight="1"/>
+                <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp" app:srcCompat="@drawable/img_plan4_1" android:id="@+id/imageView2"
+                />
+                <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp" app:srcCompat="@drawable/img_plan4_2" android:id="@+id/imageView3"
+                />
+                <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_weight="1"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
     <Button
@@ -59,6 +76,6 @@
             android:fontFamily="sans-serif"
             android:backgroundTintMode="multiply"
             android:layout_marginBottom="32dp"
-            android:onClick="flipByClick" app:layout_constraintBottom_toTopOf="@+id/av1_toolbar_bottom"/>
+            android:onClick="flipByClick" app:layout_constraintBottom_toTopOf="@+id/avf_toolbar_bottom"/>
 
 </android.support.constraint.ConstraintLayout>

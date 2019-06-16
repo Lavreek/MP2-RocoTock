@@ -10,14 +10,15 @@ interface GoalDao {
     @get:Query("SELECT * FROM entitygoal ")
     val getGoals : List<EntityGoal>
 
-    @get:Query("Update EntityGoal Set goal_progress = (Select count(id_entityGoal) From EntityTasks Where id = id_entityGoal)")
-    val Upsss222 : Int
+    @get:Query("SELECT goal_caption FROM entitygoal")
+    val getGoalCaptions : List<String>
 
-//    @Query("UPDATE entitygoal SET goal_progress = (SELECT Count(id_entitygoal) FROM entitytasks WHERE entitytasks.id_entitygoal = :id) WHERE :id IN (SELECT id_entitygoal FROM entitytasks WHERE :id = entitytasks.id_entitygoal)")
-//    fun setProgress(id: Int) : Int
+    @Query("SELECT * FROM entitygoal WHERE goal_caption = :caption")
+    fun getCaptionGoalList(caption: String?) : List<EntityGoal>
 
-//    @Query("UPDATE entitygoal SET goal_progress = (SELECT AVG(task_progress) FROM entitytasks Left join entitygoal on entitygoal.id = entitytasks.id_entitygoal GROUP BY entitygoal.id)")
-//    fun setProgress(id: Int) : Int
+    @Query("SELECT * FROM entitygoal WHERE goal_caption = :caption")
+    fun getCaptionGoal(caption: String?) : EntityGoal
+
     @Query("Select count(id_entityGoal) From EntityTasks Where :id = id_entityGoal")
     fun getCountTaskForGoal(id :Int) : Int
 
