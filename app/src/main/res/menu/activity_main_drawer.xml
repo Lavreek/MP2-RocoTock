@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <!--<item-->
+                <!--android:id="@+id/nav_account"-->
+                <!--android:title="@string/account"-->
+                <!--android:icon="@drawable/img_account_box"/>-->
+
+        <item
+                android:id="@+id/nav_goal"
+                android:title="Цели"
+                android:icon="@drawable/img_goal"/>
+
+        <item
+                android:id="@+id/nav_task"
+                android:title="Задачи"
+                android:icon="@drawable/img_goal"/>
+        <item
+                android:id="@+id/nav_stats"
+                android:title="Статистика"
+                android:icon="@drawable/img_goal"/>
+        <item
+                android:id="@+id/nav_advice"
+                android:title="Cоветы"
+                android:icon="@drawable/img_goal"/>
+        <!--<item-->
+                <!--android:id="@+id/nav_gallery"-->
+                <!--android:title="2"/>-->
+                <!--&lt;!&ndash;android:icon="@drawable/ic_menu_gallery"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:title="@string/menu_gallery"/>&ndash;&gt;-->
+        <!--<item-->
+                <!--android:id="@+id/nav_slideshow"-->
+                <!--android:title="3"/>-->
+                <!--&lt;!&ndash;android:icon="@drawable/ic_menu_slideshow"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:title="@string/menu_slideshow"/>&ndash;&gt;-->
+        <!--<item-->
+                <!--android:id="@+id/nav_tools"-->
+                <!--android:title="4"/>-->
+                <!--&lt;!&ndash;android:icon="@drawable/ic_menu_manage"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:title="@string/menu_tools"/>&ndash;&gt;-->
+    </group>
+
+    <item android:title="@string/Other">
+        <menu>
+            <item
+                    android:id="@+id/nav_settings"
+                    android:icon="@drawable/img_settings"
+                    android:title="@string/settings"/>
+                    <!--android:icon="@drawable/ic_menu_share"-->
+                    <!--android:title="@string/menu_share"/>-->
+            <!--<item-->
+                    <!--android:id="@+id/nav_send"-->
+                    <!--android:title="6"/>-->
+                    <!--android:icon="@drawable/ic_menu_send"-->
+                    <!--android:title="@string/menu_send"/>-->
+        </menu>
+    </item>
+
+</menu>

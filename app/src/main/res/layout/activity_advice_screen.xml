@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical" >
+
+    <ViewFlipper
+            android:id="@+id/viewFlipper1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:flipInterval="150">
+
+        <include
+                android:id="@+id/aas_1"
+                layout="@layout/advice_view_first"/>
+
+        <include
+                android:id="@+id/aas_2"
+                layout="@layout/advice_view_2"/>
+
+        <include
+                android:id="@+id/aas_3"
+                layout="@layout/advice_view_3"/>
+
+    </ViewFlipper>
+</LinearLayout>

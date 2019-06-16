@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.BottomNavigationView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <Space
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/bottom_nav"/>
+        <Button
+                android:id="@+id/b_HomePage"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/img_home"
+                android:onClick="gotoHome"
+                android:layout_marginTop="10dp"
+                style="@android:style/Widget.DeviceDefault.Button.Borderless"/>
+        <Space
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/bottom_nav"/>
+        <Button
+                android:id="@+id/b_Calendar"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/img_calendar"
+                android:onClick="gotoCalendar"
+                android:layout_marginTop="10dp"
+                style="@android:style/Widget.DeviceDefault.Button.Borderless"/>
+        <Space
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/bottom_nav"/>
+        <Button
+                android:id="@+id/b_Search"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/img_search"
+                android:onClick="gotoSearch"
+                android:layout_marginTop="10dp"
+                style="@android:style/Widget.DeviceDefault.Button.Borderless"/>
+        <Space
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/bottom_nav"/>
+        <Button
+                android:id="@+id/b_PersonalAccount"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/img_personalcabinet"
+                android:onClick="gotoPersonalAccount"
+                android:layout_marginTop="10dp"
+                style="@android:style/Widget.DeviceDefault.Button.Borderless" android:visibility="invisible"/>
+    </LinearLayout>
+
+</android.support.design.widget.BottomNavigationView>
