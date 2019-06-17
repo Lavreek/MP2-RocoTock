@@ -32,6 +32,7 @@ class SearchCalendars : AppCompatActivity(), NavigationView.OnNavigationItemSele
             R.id.nav_goal -> { startActivity(Intent(this, GoalRecords::class.java).noAnimation()) }
             R.id.nav_task -> { startActivity(Intent(this, TaskRecords::class.java).noAnimation()) }
             R.id.nav_stats -> { startActivity(Intent(this,PersonalAccount::class.java).noAnimation()) }
+            R.id.nav_advice -> { startActivity(Intent(this, AdviceScreen::class.java).noAnimation()) }
             R.id.nav_settings -> { startActivity(Intent(this, OtherSettings::class.java).noAnimation()) }
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.calendar_activity)

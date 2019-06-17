@@ -38,7 +38,7 @@
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="32dp"
             app:backgroundTint="@color/colorPrimary"
-            android:src="@drawable/img_done" android:visibility="visible"
+            android:src="@drawable/img_done" android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/gre_toolbar_bottom"/>
 
     <LinearLayout android:layout_width="0dp"

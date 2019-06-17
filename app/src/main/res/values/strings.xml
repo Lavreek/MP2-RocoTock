@@ -38,4 +38,8 @@
     <string name="progress">Прогресс выполнения:</string>
     <string name="mark">Метка:</string>
     <string name="next">Дальше</string>
+    <string name="Statistic">Статистика</string>
+    <string name="Tasks">Задачи</string>
+    <string name="Goals">Цели</string>
+    <string name="Advices">Cоветы</string>
 </resources>

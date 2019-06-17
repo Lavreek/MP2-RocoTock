@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical" >
@@ -8,34 +9,35 @@
             android:id="@+id/viewFlipper1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:flipInterval="150">
+            android:flipInterval="150"
+            tools:ignore="UselessParent">
 
         <include
-                android:id="@+id/aas_1"
+                android:id="@+id/include_advice_view_first"
                 layout="@layout/advice_view_first"/>
 
         <include
-                android:id="@+id/aas_2"
+                android:id="@+id/include_advice_view_second"
                 layout="@layout/advice_view_second"/>
 
         <include
-                android:id="@+id/aas_3"
+                android:id="@+id/include_advice_view_third"
                 layout="@layout/advice_view_third"/>
 
         <include
-                android:id="@+id/aas_4"
+                android:id="@+id/include_advice_view_fourth"
                 layout="@layout/advice_view_fourth"/>
 
         <include
-                android:id="@+id/aas_5"
+                android:id="@+id/include_advice_view_fifth"
                 layout="@layout/advice_view_fifth"/>
 
         <include
-                android:id="@+id/aas_6"
+                android:id="@+id/include_advice_view_sixth"
                 layout="@layout/advice_view_sixth"/>
 
         <include
-                android:id="@+id/aas_7"
+                android:id="@+id/include_advice_view_seventh"
                 layout="@layout/advice_view_seventh"/>
 
     </ViewFlipper>

@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import com.example.mp2.Entityes.EntityGoal
 import com.example.mp2.GoalsLogic.GoalRecords
 import com.example.mp2.TasksLogic.TaskRecords
@@ -34,6 +35,7 @@ class PersonalAccount : AppCompatActivity(), NavigationView.OnNavigationItemSele
             R.id.nav_goal -> { startActivity(Intent(this, GoalRecords::class.java).noAnimation()) }
             R.id.nav_task -> { startActivity(Intent(this, TaskRecords::class.java).noAnimation()) }
             R.id.nav_stats -> { startActivity(Intent(this,PersonalAccount::class.java).noAnimation()) }
+            R.id.nav_advice -> { startActivity(Intent(this, AdviceScreen::class.java).noAnimation()) }
             R.id.nav_settings -> { startActivity(Intent(this, OtherSettings::class.java).noAnimation()) }
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.activity_pc)
@@ -69,19 +71,45 @@ class PersonalAccount : AppCompatActivity(), NavigationView.OnNavigationItemSele
     private fun showTaskList() {
         Observable.fromCallable { }.doOnNext {
             val CurrentTask = DatabaseHandler?.getCurrentCount!!.toInt()
-            val CompletedTask = DatabaseHandler?.getCompletedCount!!.toInt()
-            val FallenTask = DatabaseHandler?.getFallenCount!!.toInt()
-            val ProgressCount = DatabaseHandler?.getProgressCount!!.toInt()
+            val CompletedTask = DatabaseHandler?.getCompletedTasks!!.toInt()
+            val FallenTask = DatabaseHandler?.getLostTasks!!.toInt()
+            val ProgressCount = DatabaseHandler?.getInProgressTasks!!.toInt()
             val asd = DatabaseHandler?.getCompletedForThreeDays(day)
             val asd2 = DatabaseHandler?.getCompletedForWeek(day)
             val asd3 = DatabaseHandler?.getCompletedForMonth(month)
             val asd4 = DatabaseHandler?.getAVGGoals
             val asd5 = DatabaseHandler?.getBestGoal
             val asd6 = DatabaseHandler?.getCountGoal!!
-//            val asd7 = DatabaseHandler?.getCountTaskByGoal
+            val asd7 = DatabaseHandler?.getCountTask!!
+            val asd8 = DatabaseHandler?.getPriorityTasksCount!!
+            val asd9 = DatabaseHandler?.getCompletedHighTasksCount!!
+            val asd10 = DatabaseHandler?.getCompletedMediumTasksCount!!
+            val asd11 = DatabaseHandler?.getCompletedLowTasksCount!!
+            val asd12 = DatabaseHandler?.getCompletedTaskByMonth(month - 1)!!
+            val asd13 = DatabaseHandler?.getCompletedTaskByMonth(month)!!
+            val asd14 = DatabaseHandler?.getCompletedGoals!!
+
+            val Ef : Long
+            if (asd12 < 1 || asd13 < 1) {
+                Ef = 0
+            } else {
+                Ef = asd13/ asd12
+            }
 
             this@PersonalAccount.runOnUiThread{ stats(CurrentTask, CompletedTask, FallenTask, ProgressCount,
-                p2=asd!!, p3 = asd2!!, p4 = asd3!!, p5=asd4!!, p6 = setMax(asd5), p7 = asd6) }
+                p2=asd!!,
+                p3 = asd2!!,
+                p4 = asd3!!,
+                p5= asd4!!,
+                p6 = setMax(asd5),
+                p7 = asd6,
+                p8 = asd7,
+                p9 = asd8,
+                p10 = asd9,
+                p11 = asd10,
+                p12 = asd11,
+                p13 = Ef,
+                p14 = asd14) }
         }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
     }
 
@@ -98,17 +126,27 @@ class PersonalAccount : AppCompatActivity(), NavigationView.OnNavigationItemSele
         return "$listItemProgress% $listItemCaption"
     }
 
-    fun stats(CurrentTask :Int, CompletedTask :Int, FallenTask :Int, p1 :Int, p2 :Int, p3 :Int, p4 :Int, p5 :Int, p6 :String, p7 :Int){
-        pc_tv1.setText("Количество выполненых заданий: $CompletedTask")
-        pc_tv2.setText("Количество проваленных заданий: $FallenTask")
-        pc_tv3.setText("Количество не выполненых заданий: $CurrentTask")
-        pc_tv4.setText("Количество заданий с прогрессом более 50%: $p1")
-        pc_tv6.setText("Самая успешная цель: ${p6}")
-        pc_tv7.setText("Среднее выполнение целей: ${p5}% из ${p7} целей")
-        pc_tv8.text = "Выполненые задачи:"
-        pc_tv9.setText("За 3 дня: ${p2}")
-        pc_tv10.setText("За неделю: ${p3}")
-        pc_tv11.setText("В этом месяце: ${p4}")
+    fun stats(CurrentTask :Int, CompletedTask :Int, FallenTask :Int, p1 :Int,
+              p2 :Int, p3 :Int, p4 :Int, p5 :Int, p6 :String, p7 :Int, p8 :Long, p9 :Long,
+              p10 :Long, p11 :Long,p12 :Long, p13 :Long,p14 :Long){
+        try {
+            pc_textView_1.setText("Количество заданий: $p8")
+            pc_textView_2.setText("выполненых заданий: $CompletedTask")
+            pc_textVew_3.setText("проваленных заданий: $FallenTask")
+            pc_textView_4.setText("заданий в процессе: $CurrentTask")
+            pc_textView_5.setText("Выполнено заданий c приоритетом: $p9")
+            pc_textView_6.setText("с высоким приоритетом: $p10")
+            pc_textView_7.setText("с средним приоритетом: $p11")
+            pc_textView_8.setText("с низким приоритетом: $p12")
+            pc_textView_9.setText("Количество заданий с прогрессом более 50%: $p1")
+            pc_textView_10.setText("За 3 дня: ${p2}")
+            pc_textView_11.setText("За неделю: ${p3}")
+            pc_textView_12.setText("В этом месяце: ${p4}")
+            pc_textView_13.setText("Самая успешная цель: ${p6}")
+            pc_textView_14.setText("Среднее выполнение целей: ${p5}% из ${p7} целей")
+            pc_textView_15.setText("Целей завершено: ${p14}%")
+            pc_textView_16.setText("Ваша эффективность лучше чем в прошлом месяце на: ${p13}%")
+        } catch (e : Throwable) { Toast.makeText(this,e.message,Toast.LENGTH_SHORT).show()}
     }
 
     fun gotoHome(v :View){ startActivity(Intent(this, MainActivity::class.java).noAnimation()) }

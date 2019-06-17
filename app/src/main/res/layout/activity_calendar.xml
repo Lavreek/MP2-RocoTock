@@ -9,7 +9,7 @@
         tools:context=".SearchCalendars">
 
     <include
-            android:id="@+id/calendar_support"
+            android:id="@+id/include_calendar_support"
             layout="@layout/support_activity_calendar"/>
 
     <android.support.design.widget.NavigationView
@@ -21,5 +21,4 @@
             app:headerLayout="@layout/nav_header_main"
             app:menu="@menu/activity_main_drawer"
             tools:ignore="MissingConstraints"/>
-
 </android.support.v4.widget.DrawerLayout>

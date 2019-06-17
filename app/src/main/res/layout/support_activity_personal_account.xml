@@ -32,90 +32,230 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
         >
-            <TextView
-                    android:text="TextView"
+            <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/pc_tv1"/>
-            <Space
+                    android:layout_height="match_parent">
+                <TextView
+                        android:text="Задания"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/pc_tv0" android:fontFamily="sans-serif"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@android:color/black"/>
+                <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:layout_marginTop="8dp"/>
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    <TextView
+                            android:text="Количество заданий:"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:id="@+id/pc_textView_1"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                    <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:layout_marginTop="8dp"/>
+                    <TextView
+                            android:text="из них"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:id="@+id/pc_tv"
+                            android:layout_marginLeft="@dimen/custom_margin"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                    <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:layout_marginTop="8dp"/>
+                    <TextView
+                            android:text="выполненых заданий:"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:id="@+id/pc_textView_2"
+                            android:layout_marginLeft="16dp"/>
+                    <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:layout_marginTop="4dp"/>
+                    <TextView
+                            android:text="проваленных заданий:"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:id="@+id/pc_textVew_3"
+                            android:layout_marginLeft="16dp"/>
+                    <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:layout_marginTop="4dp"/>
+                    <TextView
+                            android:text="заданий в процессе:"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:id="@+id/pc_textView_4"
+                            android:layout_marginLeft="16dp"/>
+                    <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:layout_marginTop="16dp"/>
+                </LinearLayout>
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    <TextView
+                            android:text="Выполнено заданий c приоритетом:"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pc_textView_5"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                    <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:layout_marginTop="8dp"/>
+                    <TextView
+                            android:text="из них"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:id="@+id/pc_tv1"
+                            android:layout_marginLeft="@dimen/custom_margin"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                    <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:layout_marginTop="8dp"/>
+                    <TextView
+                            android:text="с высоким приоритетом:"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pc_textView_6"
+                            android:layout_marginLeft="16dp"/>
+                    <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:layout_marginTop="8dp"/>
+                    <TextView
+                            android:text="с средним приоритетом:"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pc_textView_7"
+                            android:layout_marginLeft="16dp"/>
+                    <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:layout_marginTop="8dp"/>
+                    <TextView
+                            android:text="с низким приоритетом:"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pc_textView_8"
+                            android:layout_marginLeft="16dp"/>
+                    <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:layout_marginTop="16dp"/>
+                    <TextView
+                            android:text="Количество заданий с прогрессом более 50%:"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pc_textView_9"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                    <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:layout_marginTop="16dp"/>
+                </LinearLayout>
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    <TextView
+                            android:text="Выполненые задачи"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pc_tv2"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                    <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:layout_marginTop="4dp"/>
+                    <TextView
+                            android:text="за 3 дня:"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pc_textView_10"
+                            android:layout_marginLeft="16dp"/>
+                    <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:layout_marginTop="4dp"/>
+                    <TextView
+                            android:text="за неделю:"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pc_textView_11"
+                            android:layout_marginLeft="16dp"/>
+                    <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:layout_marginTop="4dp"/>
+                    <TextView
+                            android:text="в этом месяце:"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pc_textView_12"
+                            android:layout_marginLeft="16dp"/>
+                    <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:layout_marginTop="16dp"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:layout_marginTop="16dp"/>
-            <TextView
-                    android:text="TextView"
+                    android:layout_height="match_parent">
+                <TextView
+                        android:text="Цели"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/pc_tv7" android:fontFamily="sans-serif"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@android:color/black"/>
+                <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:layout_marginTop="8dp"/>
+                <TextView
+                        android:text="Самая успешная цель:"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/pc_textView_13"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:layout_marginTop="16dp"/>
+                <TextView
+                        android:text="Среднее выполнение целей:"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/pc_textView_14"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:layout_marginTop="16dp"/>
+                <TextView
+                        android:text="Целей завершено:"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/pc_textView_15"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:layout_marginTop="16dp"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/pc_tv2"/>
-            <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:layout_marginTop="16dp"/>
-            <TextView
-                    android:text="TextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/pc_tv3"/>
-            <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:layout_marginTop="16dp"/>
-            <TextView
-                    android:text="TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/pc_tv4"
-            />
-            <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:layout_marginTop="16dp"/>
-            <TextView
-                    android:text="TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/pc_tv5"
-            />
-            <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:layout_marginTop="16dp"/>
-            <TextView
-                    android:text="TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/pc_tv6"
-            />
-            <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:layout_marginTop="16dp"/>
-            <TextView
-                    android:text="TextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/pc_tv7"
-            />
-            <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:layout_marginTop="16dp"/>
-            <TextView
-                    android:text="TextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/pc_tv8"
-            />
-            <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:layout_marginTop="16dp"/>
-            <TextView
-                    android:text="TextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/pc_tv9"
-            />
-            <TextView
-                    android:text="TextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/pc_tv10"
-            />
-            <TextView
-                    android:text="TextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/pc_tv11"
-            />
+                    android:layout_height="match_parent">
+                <TextView
+                        android:text="Эффективность"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/pc_tv8" android:fontFamily="sans-serif"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@android:color/black"/>
+                <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:layout_marginTop="16dp"/>
+                <TextView
+                        android:text="Ваша эффективность лучше чем в прошлом месяце на:"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/pc_textView_16"
+                />
+                <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:layout_marginTop="16dp"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </android.support.constraint.ConstraintLayout>

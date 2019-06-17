@@ -129,7 +129,7 @@ class TaskRecordCreate : AppCompatActivity() {
     }
 
     private fun setTagTextView() {
-        Observable.fromCallable { DatabaseHandler?.getEntityTags }.doOnNext{
+        Observable.fromCallable { DatabaseHandler?.getDistinctTaskTags }.doOnNext{
                 list ->
             val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list!!.toTypedArray())
             this@TaskRecordCreate.runOnUiThread{trc_editText_tag.setAdapter(adapter)}
@@ -137,7 +137,7 @@ class TaskRecordCreate : AppCompatActivity() {
     }
 
     private fun setGoalSpinner() {
-        Observable.fromCallable { MainActivity.ADB?.goalDao()?.getGoals }.doOnNext{ list ->
+        Observable.fromCallable { MainActivity.ADB?.goalDao()?.getGoalList }.doOnNext{ list ->
 
             val Count = list?.size!!.toInt() + 1
 

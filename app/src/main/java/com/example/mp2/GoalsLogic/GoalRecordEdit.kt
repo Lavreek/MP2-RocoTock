@@ -8,9 +8,12 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import android.widget.Toast
 import com.example.mp2.*
 import com.example.mp2.Entityes.EntityGoal
+import com.example.mp2.MainActivity.Companion.ADB
+import com.example.mp2.TasksLogic.TaskRecordEdit
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -51,6 +54,7 @@ class GoalRecordEdit : AppCompatActivity() {
 
     private fun setLogic() {
         setToolbar()
+        createTaskListMethod()
 
         Observable.fromCallable {
             MainActivity.ADB?.goalDao()?.getGoalTasksById(CurrentSelectedGoal?.id!!)
@@ -78,6 +82,7 @@ class GoalRecordEdit : AppCompatActivity() {
 
         gre_fab_editStart.setOnClickListener {
             gre_fab_editStart.hide()
+            gre_fab_editEnd.show()
             gre_editText_caption.isEnabled = true
             ReadyToEdit = true
             setSpinner()
@@ -85,6 +90,28 @@ class GoalRecordEdit : AppCompatActivity() {
 
         gre_fab_editEnd.setOnClickListener {
             updateGoal()
+        }
+    }
+
+    private fun createTaskListMethod() {
+        gre_listView.setOnItemClickListener { parent, view, position, id ->
+            try {
+                val textView = view as TextView
+                val ls = textView.text.toString()
+                val delimiter = " | "
+                val parts = ls.split(delimiter)
+
+                Observable.fromCallable {
+                    try {
+                        with(ADB?.employeeDao()) { TaskRecordEdit.CurrentSelectedTask = this?.getTaskByCaption(parts[1], parts[2] + "%") }
+                        startActivity(Intent(this, TaskRecordEdit::class.java).noAnimation())
+                    }
+                    catch (e : Throwable) { }
+                }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
+            }
+            catch(e:Throwable) {
+                Toast.makeText(this, "Ошибка, даже не знаю почему :(", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -104,11 +131,11 @@ class GoalRecordEdit : AppCompatActivity() {
                         startActivity(Intent(this, MainActivity::class.java).noAnimation())
                     }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
                 } else {
-                    Toast.makeText(this, "Описание задачи не может быть пустым", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, "Описание задачи не может быть пустым", Toast.LENGTH_SHORT).show()
                 }
-                Toast.makeText(this, "Задача успешно добавлена", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "Задача успешно добавлена", Toast.LENGTH_SHORT).show()
             } catch (e: Throwable) {
-                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
             }
         }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
     }

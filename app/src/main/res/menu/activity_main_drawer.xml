@@ -11,21 +11,21 @@
 
         <item
                 android:id="@+id/nav_goal"
-                android:title="Цели"
+                android:title="@string/Goals"
                 android:icon="@drawable/img_goal"/>
 
         <item
                 android:id="@+id/nav_task"
-                android:title="Задачи"
-                android:icon="@drawable/img_goal"/>
+                android:title="@string/Tasks"
+                android:icon="@drawable/img_other"/>
         <item
                 android:id="@+id/nav_stats"
-                android:title="Статистика"
-                android:icon="@drawable/img_goal"/>
+                android:title="@string/Statistic"
+                android:icon="@drawable/img_personalcabinet"/>
         <item
                 android:id="@+id/nav_advice"
-                android:title="Cоветы"
-                android:icon="@drawable/img_goal"/>
+                android:title="@string/Advices"
+                android:icon="@drawable/img_advice"/>
         <!--<item-->
                 <!--android:id="@+id/nav_gallery"-->
                 <!--android:title="2"/>-->

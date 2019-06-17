@@ -119,7 +119,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun setListView() {
         Observable.fromCallable {
-            ADB?.employeeDao()?.changeEntityStatus(day, month, year)
+            ADB?.employeeDao()?.setChangeTaskStatusOnLost(day, month, year)
+            ADB?.employeeDao()?.setChangeTaskStatusOnComplete(day, month, year)
+            ADB?.employeeDao()?.changeTaskStatus2()
             ADB?.employeeDao()?.getTodayEntity(Login, day, month, year, "В процессе")
         }.doOnNext { list ->
             val Count = list?.size!!.toInt() + 1

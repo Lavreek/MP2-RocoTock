@@ -42,6 +42,7 @@ class SearchTask : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             R.id.nav_goal -> { startActivity(Intent(this, GoalRecords::class.java).noAnimation()) }
             R.id.nav_task -> { startActivity(Intent(this, TaskRecords::class.java).noAnimation()) }
             R.id.nav_stats -> { startActivity(Intent(this,PersonalAccount::class.java).noAnimation()) }
+            R.id.nav_advice -> { startActivity(Intent(this, AdviceScreen::class.java).noAnimation()) }
             R.id.nav_settings -> { startActivity(Intent(this, OtherSettings::class.java).noAnimation()) }
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.search_task_activity)
@@ -157,7 +158,7 @@ class SearchTask : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
     private fun showTaskList() {
         Observable.fromCallable {
             CompletedCount = DatabaseHandler?.getCountTagEntity(et_search_task.text.toString())!!.toInt()
-            taskList = DatabaseHandler?.getTagEntity(et_search_task.text.toString())
+            taskList = DatabaseHandler?.getListByTag(et_search_task.text.toString())
             goalList = MainActivity.ADB?.goalDao()?.getCaptionGoalList(et_search_task.text.toString())
         }.doOnNext{
             val list = setList(taskList, goalList)
@@ -173,13 +174,13 @@ class SearchTask : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
     private fun setTaskSearch() {
         if (st_spinner.selectedItem.toString() == "Метки") {
-            Observable.fromCallable { DatabaseHandler?.getEntityTags }.doOnNext { list ->
+            Observable.fromCallable { DatabaseHandler?.getDistinctTaskTags }.doOnNext { list ->
                 val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list!!.toTypedArray())
                 this@SearchTask.runOnUiThread { et_search_task.setAdapter(adapter) }
             }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
         }
         if (st_spinner.selectedItem.toString() == "Цели") {
-            Observable.fromCallable { MainActivity.ADB?.goalDao()?.getGoalCaptions }.doOnNext { list ->
+            Observable.fromCallable { MainActivity.ADB?.goalDao()?.getGoalCaptionList }.doOnNext { list ->
                 val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list!!.toTypedArray())
                 this@SearchTask.runOnUiThread { et_search_task.setAdapter(adapter) }
             }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()

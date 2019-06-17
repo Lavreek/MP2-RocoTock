@@ -31,6 +31,7 @@ class TaskRecords : AppCompatActivity(), NavigationView.OnNavigationItemSelected
             R.id.nav_goal -> { startActivity(Intent(this, GoalRecords::class.java).noAnimation()) }
             R.id.nav_task -> { startActivity(Intent(this, TaskRecords::class.java).noAnimation()) }
             R.id.nav_stats -> { startActivity(Intent(this, PersonalAccount::class.java).noAnimation()) }
+            R.id.nav_advice -> { startActivity(Intent(this, AdviceScreen::class.java).noAnimation()) }
             R.id.nav_settings -> { startActivity(Intent(this, OtherSettings::class.java).noAnimation()) }
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.task_activity)
@@ -165,7 +166,7 @@ class TaskRecords : AppCompatActivity(), NavigationView.OnNavigationItemSelected
 
             for (i in 0 until list.size) {
                 val recipe = list[i]
-                ListItems[i + 1] = "${recipe.efficiency}% | ${recipe.importance} | ${recipe.caption.toString()}"
+                ListItems[i + 1] = "${recipe.task_progress}% | ${recipe.importance} | ${recipe.caption.toString()}"
             }
 
             listViewAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, ListItems)

@@ -8,10 +8,10 @@ import com.example.mp2.Entityes.EntityTasks
 interface GoalDao {
 
     @get:Query("SELECT * FROM entitygoal ")
-    val getGoals : List<EntityGoal>
+    val getGoalList : List<EntityGoal>
 
     @get:Query("SELECT goal_caption FROM entitygoal")
-    val getGoalCaptions : List<String>
+    val getGoalCaptionList : List<String>
 
     @Query("SELECT * FROM entitygoal WHERE goal_caption = :caption")
     fun getCaptionGoalList(caption: String?) : List<EntityGoal>

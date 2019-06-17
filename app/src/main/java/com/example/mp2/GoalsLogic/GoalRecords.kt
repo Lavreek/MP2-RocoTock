@@ -30,6 +30,7 @@ class GoalRecords : AppCompatActivity(), NavigationView.OnNavigationItemSelected
             R.id.nav_goal -> { startActivity(Intent(this, GoalRecords::class.java).noAnimation()) }
             R.id.nav_task -> { startActivity(Intent(this, TaskRecords::class.java).noAnimation()) }
             R.id.nav_stats -> { startActivity(Intent(this, PersonalAccount::class.java).noAnimation()) }
+            R.id.nav_advice -> { startActivity(Intent(this, AdviceScreen::class.java).noAnimation()) }
             R.id.nav_settings -> { startActivity(Intent(this, OtherSettings::class.java).noAnimation()) }
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.goal_activity)
@@ -64,11 +65,11 @@ class GoalRecords : AppCompatActivity(), NavigationView.OnNavigationItemSelected
     private fun currentTaskList() {
         Observable.fromCallable {
 //            var count = MainActivity.ADB?.goalDao()?.Upsss222
-            MainActivity.ADB?.goalDao()?.getGoals
+            MainActivity.ADB?.goalDao()?.getGoalList
         }.doOnNext {list ->
 
             var asd = MainActivity.ADB?.employeeDao()?.getTasks
-            var list2 = MainActivity.ADB?.goalDao()?.getGoals
+            var list2 = MainActivity.ADB?.goalDao()?.getGoalList
                 val Count = list?.size!!.toInt()
                 val ListItems = arrayOfNulls<String>(Count)
 //                goal_IntArray = arrayOf(list.size)

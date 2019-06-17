@@ -119,7 +119,7 @@ class TaskRecordEdit : AppCompatActivity(), OnSeekBarChangeListener {
     }
 
     private fun setTagTextView() {
-        Observable.fromCallable { DatabaseHandler?.getEntityTags }.doOnNext{
+        Observable.fromCallable { DatabaseHandler?.getDistinctTaskTags }.doOnNext{
                 list ->
             val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list!!.toTypedArray())
             this@TaskRecordEdit.runOnUiThread{tse_editText_setTag.setAdapter(adapter); tse_editText_setTag.setText(
@@ -136,34 +136,46 @@ class TaskRecordEdit : AppCompatActivity(), OnSeekBarChangeListener {
     private fun setUpdateMethod() {
         CTime = help.checkTime(st_day, st_month, st_year, et_day, et_month, et_year)
 
-        if (CTime) {
+//        if (CTime) {
             try {
-                if (tse_editText_caption.text.toString() != "" && CTime) {
+                if (tse_editText_caption.text.isNotEmpty()) {
                     Observable.fromCallable {
                         val entityId = MainActivity.ADB?.goalDao()?.getGoalByCaption(tre_goalspinner.selectedItem.toString())
-                        val UTask = CurrentSelectedTask as EntityTasks
-                        UTask.login = MainActivity.Login
-                        UTask.caption = tse_editText_caption.text.toString()
-                        UTask.importance = tse_prioritySpinner.selectedItem.toString()
-                        UTask.status = tse_statusSpinner.selectedItem.toString()
-                        UTask.creation_time = CurrentSelectedTask?.creation_time.toString()
-                        UTask.tag = tse_editText_setTag.text.toString()
-                        UTask.id_entitygoal = entityId?.id!!
-                        UTask.start_time_day = st_day
-                        UTask.task_progress = tre_seekBar.progress
-                        UTask.start_time_month = st_month
-                        UTask.start_time_year = st_year
-                        UTask.end_time_day = et_day
-                        UTask.end_time_month = et_month
-                        UTask.end_time_year = et_year
+                        val uGoal = CurrentSelectedTask as EntityTasks
+                        uGoal.login = MainActivity.Login
+                        uGoal.caption = tse_editText_caption.text.toString()
+                        uGoal.importance = tse_prioritySpinner.selectedItem.toString()
+                        uGoal.status = tse_statusSpinner.selectedItem.toString()
+                        uGoal.creation_time = CurrentSelectedTask?.creation_time.toString()
+                        uGoal.tag = tse_editText_setTag.text.toString()
+                        if (entityId != null) {
+                            uGoal.id_entitygoal = entityId.id
+                        }
+                        if (entityId == null) {
+                            uGoal.id_entitygoal = 0
+                        }
+                        if (st_day > CurrentTime.get(Calendar.DAY_OF_MONTH) && st_month > CurrentTime.get(Calendar.MONTH) && st_year > CurrentTime.get(Calendar.YEAR) ) {
+                            uGoal.start_time_day = st_day
+                            uGoal.start_time_month = st_month
+                            uGoal.start_time_year = st_year
+                        }
+
+                        uGoal.task_progress = tre_seekBar.progress
+
+                        if (et_day > CurrentTime.get(Calendar.DAY_OF_MONTH) && et_month > CurrentTime.get(Calendar.MONTH) && et_year > CurrentTime.get(Calendar.YEAR) ) {
+                            uGoal.end_time_day = et_day
+                            uGoal.end_time_month = et_month
+                            uGoal.end_time_year = et_year
+                        }
+
                         if (tse_statusSpinner.selectedItem.toString() == "Выполнено") {
-                            UTask.completion_time_day = c_day
-                            UTask.completion_time_month = c_month
-                            UTask.completion_time_year = c_year
+                            uGoal.completion_time_day = c_day
+                            uGoal.completion_time_month = c_month
+                            uGoal.completion_time_year = c_year
                         }
 
                         with(DatabaseHandler) {
-                            this?.update(UTask)
+                            this?.update(uGoal)
                         }
                     }.doOnNext { startActivity(Intent(this, MainActivity::class.java).noAnimation())
                     }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
@@ -175,9 +187,9 @@ class TaskRecordEdit : AppCompatActivity(), OnSeekBarChangeListener {
             } catch (e: Throwable) {
                 Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
             }
-        }
-        else
-            Toast.makeText(this, "Ошибка во времени", Toast.LENGTH_SHORT).show()
+//        }
+//        else
+//            Toast.makeText(this, "Ошибка во времени", Toast.LENGTH_SHORT).show()
     }
 
     private fun setSpinnerPriority() {
@@ -203,13 +215,12 @@ class TaskRecordEdit : AppCompatActivity(), OnSeekBarChangeListener {
                     val pos = CurrentSelectedTask?.id_entitygoal!!
                     MainActivity.ADB?.goalDao()?.getGoalById(pos)
                 }.doOnNext { entity ->
-                    val ListItems = arrayOfNulls<String>(1)
+                    val listItems = arrayOfNulls<String>(1)
                     for (i in 0 until 1) {
-                        val recipe = entity
-                        ListItems[i] = recipe?.goal_caption
+                        listItems[i] = entity?.goal_caption
                     }
 
-                    val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ListItems)
+                    val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listItems)
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     this@TaskRecordEdit.runOnUiThread { tre_goalspinner.adapter = adapter }
                 }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
@@ -217,19 +228,24 @@ class TaskRecordEdit : AppCompatActivity(), OnSeekBarChangeListener {
         }
         if (ReadyToEdit) {
             Observable.fromCallable {
-                MainActivity.ADB?.goalDao()?.getGoals
+                MainActivity.ADB?.goalDao()?.getGoalList
             }.doOnNext { list ->
 
-                val Count = list?.size!!.toInt() + 1
-                val ListItems = arrayOfNulls<String>(Count)
-                ListItems[0] = " "
+                val count = list?.size!!.toInt() + 1
+                val listItems = arrayOfNulls<String>(count)
+                listItems[0] = " "
                 for (i in 0 until list.size) {
                     val recipe = list[i]
-                    ListItems[i + 1] = recipe.goal_caption
-                }
+                    if (CurrentSelectedTask?.id_entitygoal != 0 && recipe.id == CurrentSelectedTask?.id_entitygoal) {
+                        listItems[0] = recipe.goal_caption
+                    }
 
-//                val itemList = help.setNonArray(ListItems, CurrentSelectedTask?.id_entitygoal.toString())
-                val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ListItems)
+                    listItems[i + 1] = recipe.goal_caption
+                    if (listItems[i + 1] == listItems[0]) {
+                        listItems[i + 1] = " "
+                    }
+                }
+                val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listItems)
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 this@TaskRecordEdit.runOnUiThread{ tre_goalspinner.adapter = adapter }
             }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
